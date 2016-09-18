@@ -931,30 +931,6 @@ function isSummon(cid)
 	return getCreatureMaster(cid) ~= cid or false
 end
 
--- custom Legacy Global Storage functions
-function getEternalStorageValue(key, parser)
-	local valueQuery = db.storeQuery("SELECT `value` FROM `legacy_storage` WHERE `key` = " .. key .. ";")
-	if not valueQuery then
-		if parser then
-			return false
-		else
-			return -1
-		end
-	end
-	local value = result.getDataInt(valueQuery, "value")
-    result.free(valueQuery)
-	return tonumber(value) or value
-end
-
-function setEternalStorageValue(key, value)
-	if getEternalStorageValue(key, true) then
-		db.executeQuery("UPDATE `legacy_storage` SET `value` = '" .. value .. "' WHERE `key` = " .. key .. ";")
-	else
-		db.executeQuery("INSERT INTO `legacy_storage` (`key`, `value`) VALUES (" .. key .. ", " .. value .. ");")
-	end
-	return true
-end
-
 function getPlayerOnlineTime(cid)
 	local timeQuery = db.storeQuery("SELECT `onlinetimeall` FROM `znote_players` WHERE `player_id` = " .. getPlayerGUID(cid) .. ";")
 	local onlinetimeall = result.getDataInt(timeQuery, "onlinetimeall")
