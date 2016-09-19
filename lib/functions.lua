@@ -5,6 +5,17 @@ doPlayerRemOutfitEx = doPlayerRemoveOutfitEx
 getThingfromPos = getThingFromPos
 getPlayerBalance = getPlayerAccountBalance
 getPlayersByAccountNumber = getPlayerByAccountNumber
+getCount = getNumber
+DepositMoney = doPlayerDepositMoney
+WithdrawMoney = doPlayerWithdrawMoney
+
+function getNumber(str)
+	local num = tonumber(string.match(str, "%d+"))
+	if num and num > 0 and num < 4294967295 then
+		return num
+	end
+	return 0
+end
 
 function setExperienceRate(cid, value)
 	return doPlayerSetRate(cid, LEVEL_EXPERIENCE, value)
